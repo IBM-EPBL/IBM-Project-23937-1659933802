@@ -8,7 +8,7 @@
     <h1>User List</h1>
     {{ msg }}
 
-      <table border = 1>
+      <table class="table table-striped" border = 1>
          <thead>
             <td>Name</td>
             <td>Email</td>
@@ -18,10 +18,10 @@
          
          {% for row in users %}
             <tr>
-               <td>{{row["name"]}}</td>
-               <td>{{row["email"]}}</td>
-               <td> {{row["phone"]}}</td>
-               <td>{{row["password"]}}</td>	
+               <td>{{row[0]}}</td>
+               <td>{{row[1]}}</td>
+               <td> {{row[2]}}</td>
+               <td>{{row[3]}}</td>	
             </tr>
          {% endfor %}
       </table>
