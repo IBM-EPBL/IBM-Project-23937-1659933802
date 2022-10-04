@@ -84,7 +84,7 @@ def users():
     stmt = ibm_db.exec_immediate(conn, sql)
     dictionary = ibm_db.fetch_both(stmt)
     while dictionary != False:
-        print ("The Name is : ",  dictionary)
+        #print ("The Name is : ",  dictionary)
         users.append(dictionary)
         dictionary = ibm_db.fetch_both(stmt)
 
