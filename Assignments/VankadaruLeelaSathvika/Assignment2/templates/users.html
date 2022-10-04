@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <title>Users</title>
+{% endblock %} 
+
+{% block body %}
+    <h1>User List</h1>
+    {{ msg }}
+
+      <table border = 1>
+         <thead>
+            <td>Name</td>
+            <td>Email</td>
+            <td>Phone</td>
+            <td>Password</td>
+         </thead>
+         
+         {% for row in users %}
+            <tr>
+               <td>{{row["name"]}}</td>
+               <td>{{row["email"]}}</td>
+               <td> {{row["phone"]}}</td>
+               <td>{{row["password"]}}</td>	
+            </tr>
+         {% endfor %}
+      </table>
+    
+{% endblock %} 
