@@ -25,3 +25,9 @@ Personal finance applications will ask users to add their expenses and based on 
 
 ### Solution Architecture
 ![Solution Architecture](https://user-images.githubusercontent.com/69385943/196038264-bd9f4017-3f17-4d5e-8783-67d04aa82f86.jpg)
+
+## Project Design Phase II
+
+### Technology Architecture
+![WhatsApp Image 2022-10-16 at 21 13 33](https://user-images.githubusercontent.com/69385943/196047234-e5fdd387-4222-4863-8265-571fa17369d0.jpg)
+
