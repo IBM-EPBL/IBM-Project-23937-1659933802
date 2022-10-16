@@ -9,3 +9,19 @@ Personal finance applications will ask users to add their expenses and based on 
 
 ### Technical Architecture
 ![image](https://user-images.githubusercontent.com/69385943/195766284-5c376a08-ebfb-45d1-a52b-7ffd4d22350b.png)
+
+## Ideation
+
+### Empathy Map Canvas
+![peta empathy map canvas](https://user-images.githubusercontent.com/69385943/196038102-98a9ffae-b320-4077-8522-b1731547c03b.png)
+
+### Brainstorming and Idea Prioritization
+![peta brainstorming and idea prioritization-img](https://user-images.githubusercontent.com/69385943/196038151-f68a5c8b-786e-481f-945e-910cd8d70a47.png)
+
+## Project Design Phase I
+
+### Problem Solution Fit
+![Problem Solution Fit - final](https://user-images.githubusercontent.com/69385943/196038227-83f8c978-6ae2-40ef-bc9a-625b1c7341d5.jpg)
+
+### Solution Architecture
+![Solution Architecture](https://user-images.githubusercontent.com/69385943/196038264-bd9f4017-3f17-4d5e-8783-67d04aa82f86.jpg)
