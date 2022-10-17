@@ -28,7 +28,8 @@ Personal finance applications will ask users to add their expenses and based on 
 
 ## Project Design Phase II
 
-### Customer Journey Map
+### Customer Journey Map 
+[note: please download file to view clearly as there is some quality issues]
 ![WhatsApp Image 2022-10-17 at 12 26 51](https://user-images.githubusercontent.com/69385943/196110775-754e635e-cf7b-42fd-b879-5ec248f8b014.jpg)
 
 ### Technology Architecture
