@@ -1,0 +1,349 @@
+{% extends 'head.html' %}
+{% block body %}
+<header id="header" class="header fixed-top d-flex align-items-center justify-content-between">
+    <div class="d-flex align-items-center justify-content-between">
+        <a href="/home" class="logo d-flex align-items-center">
+        <img src="static/assets/img/apple-touch-icon.png" alt="">
+        <span class="d-none d-lg-block">eXpenso</span>
+        </a>
+    </div><!-- End Logo -->
+    <nav id="navbar" class="navbar me-2">
+        <ul>
+            <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
+            <li><a class="nav-link scrollto" href="#service">Service</a></li>
+            <li><a class="nav-link scrollto" href="#faq">FAQ</a></li>
+            <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+            <li><a class="getstarted scrollto signUp" href="/signin">Get Started</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+    </nav><!-- .navbar -->
+</header><!-- End Header -->
+
+<!-- ======= Hero Section ======= -->
+<main id="main" class="main" style="margin-left: 0px;">
+    <section id="hero" class="hero d-flex align-items-center">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 d-flex flex-column justify-content-center">
+                    <h1 class="caption" data-aos="fade-up">Managing Money,<br> Made Simple</h1>
+                    <h2 data-aos="fade-up" data-aos-delay="400"> Stop living paycheck-to-paycheck,<br>
+                        get out of debt, and save more money</h2>
+                    <div data-aos="fade-up" data-aos-delay="600">
+                        <div class="text-center text-lg-start">
+                            <a class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center"
+                                href="/signin">
+                                <span>Get Started</span>
+                                <i class="bi bi-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 hero-img" data-aos="zoom-out" data-aos-delay="200">
+                    <img src="static/assets/img/hero-img.png" class="img-fluid" alt="">
+                </div>
+            </div>
+        </div>
+
+    </section><!-- End Hero -->
+    <!-- ======= Values Section ======= -->
+    <section id="service" class="values" ">
+        <div class="container" data-aos="fade-up">
+            <header class="section-header">
+                <h2>Services</h2>
+                <p>SERVICES</p>
+            </header>
+            <div class="row">
+                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="box">
+                        <img src="static/assets/img/values-1.png" class="img-fluid" alt="">
+                        <h3>All your Accounts.<br>All in One Place.</h3>
+                        <p>See it all at a glance by linking your cash accounts, credit cards, investments, and
+                            bills.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="400">
+                    <div class="box">
+                        <img src="static/assets/img/values-2.png" class="img-fluid" alt="">
+                        <h3>Keep your cashflow <br> crystal clear</h3>
+                        <p>Effortlessly track your cashflow and gain insights that'll help you save your expenses.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-4 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="600">
+                    <div class="box">
+                        <img src="static/assets/img/values-3.png" class="img-fluid" alt="">
+                        <h3>Notified through <br> constant remainders</h3>
+                        <p>Link your mobile number for getting constant alerts and remainders.</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section><!-- End Values Section -->
+    <!-- ======= F.A.Q Section ======= -->
+    <section id="faq" class="faq ">
+
+        <div class="container" data-aos="fade-up">
+
+            <header class="section-header">
+                <h2>F.A.Q</h2>
+                <p>Frequently Asked Questions</p>
+            </header>
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <!-- F.A.Q List 1-->
+                    <div class="accordion accordion-flush" id="faqlist1">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#faq-content-1">
+                                    What is sales forecasting software?
+                                </button>
+                            </h2>
+                            <div id="faq-content-1" class="accordion-collapse collapse" data-bs-parent="#faqlist1">
+                                <div class="accordion-body">
+                                    Sales forecasting software is a tool that helps organizations predict future
+                                    sales. It uses historical data and market trends to generate sales projections.
+                                    This information can be used to make inventory, staffing, and marketing
+                                    decisions.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#faq-content-2">
+                                    What are the benefits of using sales forecasting software?
+                                </button>
+                            </h2>
+                            <div id="faq-content-2" class="accordion-collapse collapse" data-bs-parent="#faqlist1">
+                                <div class="accordion-body">
+                                    It can help you make better inventory, staffing, and marketing decisions. You
+                                    can avoid overspending inventory or understaffing your team through accurate
+                                    sales projections.<br>
+                                    Sales forecasting software can help you optimize your sales strategies. You can
+                                    use the data generated by the software to tweak your sales tactics and improve
+                                    your results.<br>
+                                    Automating the sales forecasting process can free up your time to focus on other
+                                    aspects of your business.
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+
+                    <!-- F.A.Q List 2-->
+                    <div class="accordion accordion-flush" id="faqlist2">
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#faq2-content-1">
+                                    What are the key features of sales forecasting software??
+                                </button>
+                            </h2>
+                            <div id="faq2-content-1" class="accordion-collapse collapse" data-bs-parent="#faqlist2">
+                                <div class="accordion-body">
+                                    Sales forecasting tools vary in terms of features. Some of the most common
+                                    features include: <br>
+                                    1. Monitor sales pipeline<br>
+                                    2. Generate reports<br>
+                                    3. Integrate with CRM<br>
+                                    4. Forecast sales
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#faq2-content-2">
+                                    What are the different types of sales forecasting software?
+                                </button>
+                            </h2>
+                            <div id="faq2-content-2" class="accordion-collapse collapse" data-bs-parent="#faqlist2">
+                                <div class="accordion-body">
+                                    Sales forecasting tools can be classified into two main categories: <br>
+                                    1. savings management software <br>
+                                    2. Sales performance management software
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section><!-- End F.A.Q Section -->
+
+    <!-- ======= Contact Section ======= -->
+    <section id="contact" class="contact ">
+
+        <div class="container" data-aos="fade-up">
+
+            <header class="section-header">
+                <h2>Contact</h2>
+                <p>Contact Us</p>
+            </header>
+
+            <div class="row gy-4">
+
+                <div class="col-lg-6">
+
+                    <div class="row gy-4">
+                        <div class="col-md-6">
+                            <div class="info-box">
+                                <i class="bi bi-geo-alt"></i>
+                                <h3>Address</h3>
+                                <p>D404 Prasanth Nagar,<br>Hyderabad, TS 500016</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="info-box">
+                                <i class="bi bi-telephone"></i>
+                                <h3>Call Us</h3>
+                                <p>+91 98765 43210<br>+91 91234 56780</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="info-box">
+                                <i class="bi bi-envelope"></i>
+                                <h3>Email Us</h3>
+                                <p>info@example.com<br>contact@example.com</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="info-box">
+                                <i class="bi bi-clock"></i>
+                                <h3>Open Hours</h3>
+                                <p>Monday - Friday<br>9:00AM - 05:00PM</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-lg-6">
+                    <form class="php-email-form">
+                        <div class="row gy-4">
+
+                            <div class="col-md-6">
+                                <input type="text" name="name" class="form-control" placeholder="Your Name" required>
+                            </div>
+
+                            <div class="col-md-6 ">
+                                <input type="email" class="form-control" name="email" placeholder="Your Email" required>
+                            </div>
+
+                            <div class="col-md-12">
+                                <input type="text" class="form-control" name="subject" placeholder="Subject" required>
+                            </div>
+
+                            <div class="col-md-12">
+                                <textarea class="form-control" name="message" rows="6" placeholder="Message"
+                                    required></textarea>
+                            </div>
+
+                            <div class="col-md-12 text-center">
+                                <div class="loading">Loading</div>
+                                <div class="error-message"></div>
+                                <div class="sent-message">Your message has been sent. Thank you!</div>
+
+                                <button type="submit">Send Message</button>
+                            </div>
+
+                        </div>
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section><!-- End Contact Section -->
+
+</main><!-- End #main -->
+
+<!-- ======= Footer ======= -->
+<footer id="footer" class="footer" style="margin-left: 0px">
+
+
+
+    <div class="footer-top">
+        <div class="container">
+            <div class="row gy-4">
+                <div class="col-lg-5 col-md-12 footer-info">
+                    <a href="index.html" class="logo d-flex align-items-center">
+                        <img src="static/assets/img/logo.png" alt="">
+                        <span>FlexStart</span>
+                    </a>
+                    <p>Take accurate and informed decisions to avoid shortcomings and increase your sales growth.
+                    </p>
+                    <div class="social-links mt-3">
+                        <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+                        <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-lg-2 col-6 footer-links">
+                    <h4>Useful Links</h4>
+                    <ul>
+                        <li><i class="bi bi-chevron-right"></i> <a href="#">Home</a></li>
+                        <li><i class="bi bi-chevron-right"></i> <a href="#">About us</a></li>
+                        <li><i class="bi bi-chevron-right"></i> <a href="#">FAQ</a></li>
+                        <li><i class="bi bi-chevron-right"></i> <a href="#">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-2 col-6 footer-links">
+                    <h4>Our Services</h4>
+                    <ul>
+                        <li><i class="bi bi-chevron-right"></i> <a href="#">Web Design</a></li>
+                        <li><i class="bi bi-chevron-right"></i> <a href="#">Web Development</a></li>
+                        <li><i class="bi bi-chevron-right"></i> <a href="#">Product Management</a></li>
+                        <li><i class="bi bi-chevron-right"></i> <a href="#">Marketing</a></li>
+                        <li><i class="bi bi-chevron-right"></i> <a href="#">Graphic Design</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
+                    <h4>Contact Us</h4>
+                    <p>
+                        D404 Prasanth Nagar,<br>
+                        Hyderabad, TS 500016<br>
+                        Telangana, India <br><br>
+                        <strong>Phone:</strong> +91 98765 43210<br>
+                        <strong>Email:</strong> info@example.com<br>
+                    </p>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="copyright">
+            &copy; Copyright <strong><span>SalesMate</span></strong>. All Rights Reserved
+        </div>
+        <div class="credits">
+            Designed by <a href="https://www.linkedin.com/in/pragnasya-s-5aa603209/">Pragnasya❤</a>
+        </div>
+    </div>
+</footer><!-- End Footer -->
+
+{% endblock %}

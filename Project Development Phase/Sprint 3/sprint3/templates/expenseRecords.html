@@ -1,0 +1,205 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<div class="mx-auto">
+  {% if successMessage %}
+    <div class="alert alert-primary alert-dismissible fade in show" role="alert" >
+        {{ successMessage }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endif %}
+    {% if failureMessage %}
+    <div class="alert alert-danger alert-dismissible fade in show" role="alert">
+        {{ failureMessage }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endif %}
+</div>
+<div class="pagetitle">
+  <div class="row">
+    <div class="col-md-10">
+      <h1>Expenses</h1>
+      <nav>
+      <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/">Home</a></li>
+          <li class="breadcrumb-item"><a href="/expenseRecords">Expense Records</a></li>
+      </ol>
+      </nav>
+    </div>
+    <div class="col-md-2">
+      <!-- Add Expense Modal -->
+      <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#addExpenseModal">
+        Add Expense
+      </button>
+
+      <div class="modal fade " id="addExpenseModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Add Expense</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <!-- Multi Columns Form -->
+              <form class="row g-3" action="expenseRecords" method="post">
+                <div class="col-md-12">
+                  <label for="expensename" class="form-label">Expense Name</label>
+                  <input type="text" class="form-control" id="expensename" name="expensename">
+                </div>
+                <div class="col-md-6">
+                  <label for="expensedate" class="form-label">Date</label>
+                  <input type="date" class="form-control" id="expensedate" name="expensedate">
+                </div>
+                <div class="col-12">
+                  <label for="expenseDescription" class="form-label">Description</label>
+                  <textarea class="form-control" id="expenseDescription" name="expensedescription" placeholder="write expense split up...."></textarea>
+                </div>
+                <div class="col-md-6">
+                  <label for="savings" class="form-label">Savings</label>
+                  <select id="savings" class="form-select" name="savings">
+                    {% for saving in savings%}
+                      <option value='{{ saving["SAVINGSID"] }}'>{{ saving["SAVINGSNAME"] }} : {{ saving["SAVINGSTYPE"] }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label for="expenseAmount" class="form-label">Amount Spent</label>
+                  <input type="text" class="form-control" id="expenseAmount" name="expenseamount">
+                </div>
+                <div class="text-center">
+                  <button type="submit" class="btn btn-primary" name="submit" value="addExpense">Add Expense</button>
+                  <button type="reset" class="btn btn-secondary">Reset</button>
+                </div>
+              </form><!-- End Multi Columns Form -->
+            </div>
+            <div class="modal-footer">
+            </div>
+          </div>
+        </div>
+      </div><!-- End Add Expense Modal-->
+    </div>
+  </div>
+</div><!-- End Page Title -->
+<section class="section">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Expenses</h5>
+
+        <!-- Table with hoverable rows -->
+        <table class="table table-hover" id="expense-records">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Name</th>
+              <th scope="col">Date</th>
+              <th scope="col">Description</th>
+              <th scope="col">Savings</th>
+              <th scope="col">Savings Type</th>
+              <th scope="col">Amount</th>
+              <th scope="col">Edit</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in expenses %}
+              <tr>
+                <th scope="row">{{ loop.index }}</th>
+                <td>{{ row["EXPENSENAME"] }}</td>
+                <td>{{ row["DATE"]+"/"+row["MONTH"]+"/"+row["YEAR"] }}</td>
+                <td>{{ row["DESCRIPTION"] }}</td>
+                <td>{{ row["SAVINGSNAME"] }}</td>
+                <td>{{ row["SAVINGSTYPE"] }}</td>
+                <td>{{ row["AMOUNT"] }}</td>
+                <td>
+                  <button type="button" class="btn btn-warning" id="edit-expense-form" data-bs-toggle="modal" data-bs-target="#editExpenseModal" value='{{ row["EXPENSEID"] }}'>
+                  <i class="fa fa-pen-to-square"></i>
+                  </button>
+
+                  <form action="expenseRecords" method="post">
+                    <input type="text" name="expenseid" value='{{ row["EXPENSEID"] }}' hidden/>
+                    <button class="btn btn-danger" type="submit" name="submit" value='deleteExpense'><i class="fa fa-trash"></i></button>
+                  </form>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <!-- End Table with hoverable rows -->
+      </div>
+  </div>
+<div class="modal fade " id="editExpenseModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Edit Expense</h5>
+          <button type="reset" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Multi Columns Form -->
+          <form class="row g-3" action="/expenseRecords" method="post">
+            <input type="text" class="form-control" id="editexpenseid" name="expenseid" value="" hidden>
+            <div class="col-md-12">
+              <label for="editexpensename" class="form-label">Expense Name</label>
+              <input type="text" class="form-control" id="editexpensename" name="expensename" value="">
+            </div>
+            <div class="col-md-6">
+              <label for="editexpensedate" class="form-label">Date</label>
+              <input type="date" class="form-control" id="editexpensedate" name="expensedate">
+            </div>
+            <div class="col-12">
+              <label for="editexpensedescription" class="form-label">Description</label>
+              <textarea class="form-control" id="editexpensedescription" name="expensedescription" placeholder="write expense split up...."></textarea>
+            </div>
+            <div class="col-md-6">
+              <label for="editsavings" class="form-label">Savings</label>
+              <select id="editsavings" class="form-select" name="savings" value="">
+                {% for saving in savings%}
+                  <option value='{{ saving["SAVINGSID"] }}'>{{ saving["SAVINGSNAME"] }} : {{ saving["SAVINGSTYPE"] }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label for="editexpenseamount" class="form-label">Amount Spent</label>
+              <input type="text" class="form-control" id="editexpenseamount" name="expenseamount">
+            </div>
+            <div class="text-center">
+              <button type="submit" class="btn btn-primary" name="submit" value="editExpense">Edit Expense</button>
+              <button type="reset" class="btn btn-secondary">Reset</button>
+            </div>
+          </form><!-- End Multi Columns Form -->
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div>
+    </div>
+</div><!-- End Edit Expense Modal-->
+</section>
+<script>
+  $(document).ready(function () {
+    $('#expense-records').DataTable({
+        order: [[1, 'desc']],
+    });
+});
+</script>
+
+<script>
+  $(document).ready(function(){
+    $('.btn-warning').click(function(){
+      var expenseid = $(this).val();
+      $.ajax({
+        url:'/expenseRecords',
+        type:'post',
+        data: {'submit':'getExpenseValues','expenseid':expenseid},
+        success: function(data) {
+          var expense = JSON.parse(data);
+          $('#editexpenseid').val(expense['EXPENSEID']);
+          $('#editexpensename').val(expense['EXPENSENAME']);
+          $('#editexpensedate').val(expense['YEAR']+"-"+expense["MONTH"]+"-"+expense["DATE"]);
+          $('#editexpensedescription').val(expense['DESCRIPTION']);
+          $('#editsavings').val(expense['SAVINGSID']);
+          $('#editexpenseamount').val(expense['AMOUNT']);
+        }
+      })
+    });
+  });
+</script>
+{% endblock %} 

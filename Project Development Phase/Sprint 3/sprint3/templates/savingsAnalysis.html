@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+
+{% block main %}
+     <div class="pagetitle">
+          <h1>Home</h1><!--Change Here-->
+          <nav>
+               <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/home">Home</a></li>
+                    <li class="breadcrumb-item"><a href="/SavingsAnalysis">Savings Analysis</a></li><!--Change Here-->
+               </ol>
+          </nav>
+     </div><!-- End Page Title -->
+     <section class="section dashboard">
+
+          <div class="card">
+               <div class="card-body">
+                 <h5 class="card-title">Bar Chart</h5>
+                 <!-- Bordered Tabs Justified -->
+                 <ul class="nav nav-tabs nav-tabs-bordered d-flex" id="borderedTabJustified" role="tablist">
+                   <li class="nav-item flex-fill" role="presentation">
+                     <button class="nav-link w-100 active" id="barChartThisMonth-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-barChartThisMonth" type="button" role="tab" aria-controls="barChartThisMonth" aria-selected="true">This Month</button>
+                   </li>
+                   <li class="nav-item flex-fill" role="presentation">
+                     <button class="nav-link w-100" id="barChartThisYear-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-barChartThisYear" type="button" role="tab" aria-controls="barChartThisYear" aria-selected="false">This Year</button>
+                   </li>
+                 </ul>
+                 <div class="tab-content pt-2" id="borderedTabJustifiedContent">
+                   <div class="tab-pane fade show active" id="bordered-justified-barChartThisMonth" role="tabpanel" aria-labelledby="barChartThisMonth-tab">
+                    <div class="card">
+                         <div class="card-body">
+                           <h5 class="card-title">Reports <span>| Debit</span></h5>
+                           <!-- Bar Chart -->
+                           <canvas id="barChartThisMonth" style="max-height: 400px;"></canvas>
+                           <script>
+                                document.addEventListener("DOMContentLoaded", () => {
+                                new Chart(document.querySelector('#barChartThisMonth'), {
+                                     type: 'bar',
+                                     data: {
+                                     labels: {{ debitSavings | safe }},
+                                     datasets: [{
+                                     label: 'Bar Chart',
+                                     data: {{ debitSavingsList }},
+                                     backgroundColor: [
+                                          'rgba(255, 99, 132, 0.2)',
+                                          'rgba(255, 159, 64, 0.2)',
+                                          'rgba(255, 205, 86, 0.2)',
+                                          'rgba(75, 192, 192, 0.2)',
+                                          'rgba(54, 162, 235, 0.2)',
+                                          'rgba(153, 102, 255, 0.2)',
+                                          'rgba(201, 203, 207, 0.2)'
+                                     ],
+                                     borderColor: [
+                                          'rgb(255, 99, 132)',
+                                          'rgb(255, 159, 64)',
+                                          'rgb(255, 205, 86)',
+                                          'rgb(75, 192, 192)',
+                                          'rgb(54, 162, 235)',
+                                          'rgb(153, 102, 255)',
+                                          'rgb(201, 203, 207)'
+                                     ],
+                                     borderWidth: 1
+                                     }]
+                                     },
+                                     options: {
+                                     scales: {
+                                     y: {
+                                          beginAtZero: true
+                                     }
+                                     }
+                                     }
+                                });
+                                });
+                           </script>
+                      <!-- End Bar CHart -->
+                         </div>
+                    </div>
+                   </div>
+                   <div class="tab-pane fade" id="bordered-justified-barChartThisYear" role="tabpanel" aria-labelledby="barChartThisYear-tab">
+                    <div class="card">
+                         <div class="card-body">
+                           <h5 class="card-title">Reports <span>| Credit</span></h5>
+                           <!-- Bar Chart -->
+                              <canvas id="barChartThisYear" style="max-height: 400px;"></canvas>
+                              <script>
+                                   document.addEventListener("DOMContentLoaded", () => {
+                                   new Chart(document.querySelector('#barChartThisYear'), {
+                                        type: 'bar',
+                                        data: {
+                                        labels: {{ creditSavings | safe }}, 
+                                        datasets: [{
+                                        label: 'Bar Chart',
+                                        data: {{ creditSavingsList }},
+                                        backgroundColor: [
+                                             'rgba(255, 99, 132, 0.2)',
+                                             'rgba(255, 159, 64, 0.2)',
+                                             'rgba(255, 205, 86, 0.2)',
+                                             'rgba(75, 192, 192, 0.2)',
+                                             'rgba(54, 162, 235, 0.2)',
+                                             'rgba(153, 102, 255, 0.2)',
+                                             'rgba(201, 203, 207, 0.2)'
+                                        ],
+                                        borderColor: [
+                                             'rgb(255, 99, 132)',
+                                             'rgb(255, 159, 64)',
+                                             'rgb(255, 205, 86)',
+                                             'rgb(75, 192, 192)',
+                                             'rgb(54, 162, 235)',
+                                             'rgb(153, 102, 255)',
+                                             'rgb(201, 203, 207)'
+                                        ],
+                                        borderWidth: 1
+                                        }]
+                                        },
+                                        options: {
+                                        scales: {
+                                        y: {
+                                             beginAtZero: true
+                                        }
+                                        }
+                                        }
+                                   });
+                                   });
+                              </script>
+                         <!-- End Bar CHart -->
+                         </div>
+                    </div>
+                    </div>
+                 </div><!-- End Bordered Tabs Justified -->
+   
+               </div>
+          </div>
+     </section>
+{% endblock %} 

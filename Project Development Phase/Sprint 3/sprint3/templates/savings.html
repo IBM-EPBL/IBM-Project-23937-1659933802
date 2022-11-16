@@ -1,0 +1,204 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<div class="pagetitle">
+  <div class="row">
+    <div class="col-md-10">
+      <h1>Savings</h1>
+      <nav>
+      <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/">Home</a></li>
+          <li class="breadcrumb-item"><a href="/Savings">Savings</a></li>
+      </ol>
+      </nav>
+    </div>
+    <div class="col-md-2">
+      <!-- Add savings Modal -->
+      <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#addSavingsModal">
+        Add Finance
+      </button>
+      <div class="modal fade " id="addSavingsModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Add Finance</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <!-- Multi Columns Form -->
+              <form class="row g-3" action="addSavings" method="post">
+                <div class="col-md-12">
+                  <label for="savingsname" class="form-label">Savings Name</label>
+                  <input type="text" class="form-control" id="savingsname" name="savingsname">
+                </div>
+                <div class="col-12">
+                  <label for="savingsDescription" class="form-label">Description</label>
+                  <textarea class="form-control" id="savingsDescription" name="savingsdescription" placeholder="write savings split up...."></textarea>
+                </div>
+                <div class="col-md-6">
+                  <label for="savings" class="form-label">Savings Type</label>
+                    <select id="savings" class="form-select" name="savingstype">
+                      <option>Select Value</option>
+                      <option value='credit'>Credit</option>
+                      <option value='debit'>Debit</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label for="savingsAmount" class="form-label">Amount</label>
+                  <input type="text" class="form-control" id="savingsAmount" name="savingsamount">
+                </div>
+                <div class="text-center">
+                  <button type="submit" class="btn btn-primary" name="submit" value="addSaving">Add Finance</button>
+                  <button type="reset" class="btn btn-secondary">Reset</button>
+                </div>
+              </form><!-- End Multi Columns Form -->
+            </div>
+            <div class="modal-footer">
+            </div>
+          </div>
+        </div>
+      </div><!-- End Add savings Modal-->
+    </div>
+  </div>
+</div><!-- End Page Title -->
+<section class="section dashboard">
+<div class="row"> 
+  <div class="col-md-4">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card info-card savings-card">
+          <div class="card-body">
+            <h5 class="card-title">Credit amount spent</h5>
+
+            <div class="d-flex align-items-center">
+              <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                <i class="bi bi-credit-card"></i>
+              </div>
+              <div class="ps-3">
+                <h6>Rs. {{ creditsavings }}</h6>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card info-card savings-card">
+          <div class="card-body">
+            <h5 class="card-title">Debit balance left</h5>
+
+            <div class="d-flex align-items-center">
+              <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                <i class="bi bi-piggy-bank-fill"></i>
+              </div>
+              <div class="ps-3">
+                <h6>Rs. {{ debitsavings }}</h6>
+                
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-8">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Reports <span>| This Year</span></h5>
+        <!-- Line Chart -->
+        <div >
+          <canvas id="lineChartThisYear" style="max-height: 400px; display: block; box-sizing: border-box; height: 208.8px; width: 418.4px;" width="523" height="261"></canvas>
+        </div>
+        <script>
+          document.addEventListener("DOMContentLoaded", () => {
+            new Chart(document.querySelector('#lineChartThisYear'), {
+              type: 'line',
+              data: {
+                labels: {{ monthLabels | safe }},
+                datasets: [{
+                  label: 'Line Chart',
+                  data: {{ monthsavingsList | safe }} ,
+                  fill: false,
+                  borderColor: 'rgb(75, 192, 192)',
+                  tension: 0.3
+                }]
+              },
+              options: {
+                scales: {
+                  y: {
+                    beginAtZero: true
+                  }
+                }
+              }
+            });
+          });
+        </script>
+      </div>
+ </div>
+  </div>
+
+</div>
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Recent used savings</h5>
+
+      <!-- Table with hoverable rows -->
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Savings Name</th>
+            <th scope="col">Description</th>
+            <th scope="col">Savings</th>
+            <th scope="col">Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in recentsavings %}
+            <tr>
+              <th scope="row">{{ loop.index }}</th>
+              <td>{{ row["SAVINGSNAME"] }}</td>
+              <td>{{ row["DESCRIPTION"] }}</td>
+              <td>{{ row["SAVINGSTYPE"] }}</td>
+              <td>{{ row["AMOUNT"] }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <!-- End Table with hoverable rows -->
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Highest Savings</h5>
+      <!-- Table with hoverable rows -->
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Savings Name</th>
+            <th scope="col">Description</th>
+            <th scope="col">Savings</th>
+            <th scope="col">Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in highestsavings %}
+            <tr>
+              <th scope="row">{{ loop.index }}</th>
+              <td>{{ row["SAVINGSNAME"] }}</td>
+              <td>{{ row["DESCRIPTION"] }}</td>
+              <td>{{ row["SAVINGSTYPE"] }}</td>
+              <td>{{ row["AMOUNT"] }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <!-- End Table with hoverable rows -->
+    </div>
+  </div>
+</section>
+{% endblock %} 

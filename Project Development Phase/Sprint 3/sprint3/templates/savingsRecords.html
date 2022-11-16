@@ -1,0 +1,237 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<div class="mx-auto">
+  {% if successMessage %}
+    <div class="alert alert-primary alert-dismissible fade in show" role="alert" >
+        {{ successMessage }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endif %}
+    {% if failureMessage %}
+    <div class="alert alert-danger alert-dismissible fade in show" role="alert">
+        {{ failureMessage }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endif %}
+</div>
+<div class="pagetitle">
+  <div class="row">
+    <div class="col-md-10">
+      <h1>Savings</h1>
+      <nav>
+      <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/">Home</a></li>
+          <li class="breadcrumb-item"><a href="/SavingsRecords">Savings Records</a></li>
+      </ol>
+      </nav>
+    </div>
+    <div class="col-md-2">
+      <!-- Add savings Modal -->
+      <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#addsavingsModal">
+        Add Finance
+      </button>
+
+      <div class="modal fade " id="addsavingsModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Add Finance</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <!-- Multi Columns Form -->
+              <form class="row g-3" action="SavingsRecords" method="post">
+                <div class="col-md-12">
+                  <label for="savingsname" class="form-label">Savings Name</label>
+                  <input type="text" class="form-control" id="savingsname" name="savingsname">
+                </div>
+                <div class="col-12">
+                  <label for="savingsDescription" class="form-label">Description</label>
+                  <textarea class="form-control" id="savingsDescription" name="savingsdescription" placeholder="write savings split up...."></textarea>
+                </div>
+                <div class="col-md-6">
+                  <label for="savings" class="form-label">Savings Type</label>
+                    <select id="savings" class="form-select" name="savingstype" >
+                      <option>Select Value</option>
+                      <option value='credit'>Credit</option>
+                      <option value='debit'>Debit</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label for="savingsAmount" class="form-label">Amount</label>
+                  <input type="number" class="form-control" id="savingsAmount" name="savingsamount">
+                </div>
+                <div class="text-center">
+                  <button type="submit" class="btn btn-primary" name="submit" value="addSaving">Add Finance</button>
+                  <button type="reset" class="btn btn-secondary">Reset</button>
+                </div>
+              </form><!-- End Multi Columns Form -->
+            </div>
+            <div class="modal-footer">
+            </div>
+          </div>
+        </div>
+      </div><!-- End Add savings Modal-->
+    </div>
+  </div>
+</div><!-- End Page Title -->
+<section class="section">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Debit Finance</h5>
+
+        <!-- Table with hoverable rows -->
+        <table class="table table-hover" id="debit-savings-records">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Name</th>
+              <th scope="col">Description</th>
+              <th scope="col">Amount</th>
+              <th scope="col">Edit</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in debitSavings %}
+              <tr>
+                <th scope="row">{{ loop.index }}</th>
+                <td>{{ row["SAVINGSNAME"] }}</td>
+                <td>{{ row["DESCRIPTION"] }}</td>
+                <td>{{ row["AMOUNT"] }}</td>
+                <td>
+                  <button type="button" class="btn btn-warning" id="edit-savings-form" data-bs-toggle="modal" data-bs-target="#editSavingsModal" value='{{ row["SAVINGSID"] }}'>
+                  <i class="fa fa-pen-to-square"></i>
+                  </button>
+
+                  <form action="SavingsRecords" method="post">
+                    <input type="text" name="savingsid" value='{{ row["SAVINGSID"] }}' hidden/>
+                    <button class="btn btn-danger" type="submit" name="submit" value='deleteSaving'><i class="fa fa-trash"></i></button>
+                  </form>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <!-- End Table with hoverable rows -->
+      </div>
+  </div>
+
+</section>
+<section class="section">
+     <div class="card">
+       <div class="card-body">
+         <h5 class="card-title">Credit Finance</h5>
+ 
+         <!-- Table with hoverable rows -->
+         <table class="table table-hover" id="credit-savings-records">
+           <thead>
+             <tr>
+               <th scope="col">#</th>
+               <th scope="col">Name</th>
+               <th scope="col">Description</th>
+               <th scope="col">Amount</th>
+               <th scope="col">Edit</th>
+             </tr>
+           </thead>
+           <tbody>
+             {% for row in creditSavings %}
+               <tr>
+                 <th scope="row">{{ loop.index }}</th>
+                 <td>{{ row["SAVINGSNAME"] }}</td>
+                 <td>{{ row["DESCRIPTION"] }} </td>
+                 <td>{{ row["AMOUNT"] }}</td>
+                 <td>
+                   <button type="button" class="btn btn-warning" id="edit-savings-form" data-bs-toggle="modal" data-bs-target="#editSavingsModal" value='{{ row["SAVINGSID"] }}'>
+                   <i class="fa fa-pen-to-square"></i>
+                   </button>
+ 
+                   <form action="SavingsRecords" method="post">
+                     <input type="text" name="savingsid" value='{{ row["SAVINGSID"] }}' hidden/>
+                     <button class="btn btn-danger" type="submit" name="submit" value='deleteSaving'><i class="fa fa-trash"></i></button>
+                   </form>
+                 </td>
+               </tr>
+             {% endfor %}
+           </tbody>
+         </table>
+         <!-- End Table with hoverable rows -->
+       </div>
+   </div>
+ <div class="modal fade " id="editSavingsModal" tabindex="-1">
+     <div class="modal-dialog modal-lg">
+       <div class="modal-content">
+         <div class="modal-header">
+           <h5 class="modal-title">Edit savings</h5>
+           <button type="reset" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+         </div>
+         <div class="modal-body">
+           <!-- Multi Columns Form -->
+           <form class="row g-3" action="/SavingsRecords" method="post">
+             <input type="text" class="form-control" id="editsavingsid" name="savingsid" value="" hidden>
+             <div class="col-md-12">
+               <label for="editsavingsname" class="form-label">savings Name</label>
+               <input type="text" class="form-control" id="editsavingsname" name="savingsname" value="">
+             </div>
+             <div class="col-12">
+               <label for="editsavingsdescription" class="form-label">Description</label>
+               <textarea class="form-control" id="editsavingsdescription" name="savingsdescription" placeholder="write savings split up...."></textarea>
+             </div>
+             <div class="col-md-6">
+               <label for="editsavingstype" class="form-label">Savings</label>
+               <input type="text" class="form-control" id="editsavingstype" name="savingstype" value="" readonly>
+            </select>
+             </div>
+             <div class="col-md-6">
+               <label for="editsavingsamount" class="form-label">Amount</label>
+               <input type="text" class="form-control" id="editsavingsamount" name="savingsamount">
+             </div>
+             <div class="text-center">
+               <button type="submit" class="btn btn-primary" name="submit" value="editsavings">Edit Savings</button>
+               <button type="reset" class="btn btn-secondary">Reset</button>
+             </div>
+           </form><!-- End Multi Columns Form -->
+         </div>
+         <div class="modal-footer">
+         </div>
+       </div>
+     </div>
+ </div><!-- End Edit savings Modal-->
+ </section>
+
+
+<script>
+  $(document).ready(function () {
+    $('#credit-savings-records').DataTable({
+        order: [[1, 'desc']],
+    });
+});
+
+$(document).ready(function () {
+  $('#debit-savings-records').DataTable({
+      order: [[1, 'desc']],
+  });
+});
+</script>
+
+<script>
+  $(document).ready(function(){
+    $('.btn-warning').click(function(){
+      var savingsid = $(this).val();
+      $.ajax({
+        url:'/SavingsRecords',
+        type:'post',
+        data: {'submit':'getSavingsValues','savingsid':savingsid},
+        success: function(data) {
+          var savings = JSON.parse(data);
+          $('#editsavingsid').val(savings['SAVINGSID']);
+          $('#editsavingsname').val(savings['SAVINGSNAME']);
+          $('#editsavingsdescription').val(savings['DESCRIPTION']);
+          $('#editsavingstype').val(savings['SAVINGSTYPE']);
+          $('#editsavingsamount').val(savings['AMOUNT']);
+        }
+      })
+    });
+  });
+</script>
+{% endblock %} 

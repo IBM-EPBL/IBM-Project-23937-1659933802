@@ -1,0 +1,214 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<div class="pagetitle">
+  <div class="row">
+    <div class="col-md-10">
+      <h1>Expenses</h1>
+      <nav>
+      <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/">Home</a></li>
+          <li class="breadcrumb-item"><a href="/expenses">Expenses</a></li>
+      </ol>
+      </nav>
+    </div>
+    <div class="col-md-2">
+      <!-- Add Expense Modal -->
+      <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#addExpenseModal">
+        Add Expense
+      </button>
+      <div class="modal fade " id="addExpenseModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Add Expense</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <!-- Multi Columns Form -->
+              <form class="row g-3" action="/addExpense" method="post">
+                <div class="col-md-12 form_group">
+                  <label for="expensename" class="form-label">Expense Name</label>
+                  <input type="text" class="form-control" id="expensename" name="expensename" >
+                  <div id="expensename-error"></div>
+                </div>
+                <div class="col-md-6 form_group">
+                  <label for="expensedate" class="form-label">Date</label>
+                  <input type="date" class="form-control" id="expensedate" name="expensedate">
+                  <div id="date-error"></div>
+                </div>
+                <div class="col-12 form_group">
+                  <label for="expenseDescription" class="form-label">Description</label>
+                  <textarea class="form-control" id="expenseDescription" name="expensedescription" placeholder="write expense split up...."></textarea>
+                </div>
+                <div class="col-md-6 form_group">
+                  <label for="savings" class="form-label">Savings</label>
+                  <select id="savings" class="form-select" name="savings">
+                    {% for saving in savings%}
+                      <option value='{{ saving["SAVINGSID"] }}'>{{ saving["SAVINGSNAME"] }} : {{ saving["SAVINGSTYPE"] }}</option>
+                    {% endfor %}
+                  </select>
+                  <div id="saving-error"></div>
+                </div>
+                <div class="col-md-6 form_group">
+                  <label for="expenseAmount" class="form-label">Amount Spent</label>
+                  <input type="number" class="form-control" id="expenseAmount" name="expenseamount" onkeyup="validateAmount() "
+                  oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/>
+                  <div id="amount-error"></div>
+                </div>
+                <div class="text-center">
+                  <button type="submit" class="btn btn-primary">Add Expense</button>
+                  <button type="reset" class="btn btn-secondary">Reset</button>
+                </div>
+              </form><!-- End Multi Columns Form -->
+            </div>
+            <div class="modal-footer">
+            </div>
+          </div>
+        </div>
+      </div><!-- End Add Expense Modal-->
+    </div>
+  </div>
+</div><!-- End Page Title -->
+<section class="section dashboard">
+<div class="row"> 
+  <div class="col-md-4">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card info-card expense-card">
+          <div class="card-body">
+            <h5 class="card-title">Credit Expenses</h5>
+
+            <div class="d-flex align-items-center">
+              <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                <i class="bi bi-credit-card"></i>
+              </div>
+              <div class="ps-3">
+                <h6>Rs. {{ creditExpenses }}</h6>                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card info-card savings-card">
+          <div class="card-body">
+            <h5 class="card-title">Debit Expenses</h5>
+
+            <div class="d-flex align-items-center">
+              <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                <i class="bi bi-piggy-bank-fill"></i>
+              </div>
+              <div class="ps-3">
+                <h6>Rs. {{ debitExpenses }}</h6>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-8">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Reports <span>| This Year</span></h5>
+        <!-- Line Chart -->
+        <div >
+          <canvas id="lineChartThisYear" style="max-height: 400px; display: block; box-sizing: border-box; height: 208.8px; width: 418.4px;" width="523" height="261"></canvas>
+        </div>
+        <script>
+          document.addEventListener("DOMContentLoaded", () => {
+            new Chart(document.querySelector('#lineChartThisYear'), {
+              type: 'line',
+              data: {
+                labels: {{ monthLabels | safe }},
+                datasets: [{
+                  label: 'Line Chart',
+                  data: {{ monthExpenseList | safe }} ,
+                  fill: false,
+                  borderColor: 'rgb(75, 192, 192)',
+                  tension: 0.3
+                }]
+              },
+              options: {
+                scales: {
+                  y: {
+                    beginAtZero: true
+                  }
+                }
+              }
+            });
+          });
+        </script>
+      </div>
+ </div>
+  </div>
+
+</div>
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Recent Expenses</h5>
+
+      <!-- Table with hoverable rows -->
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Expense</th>
+            <th scope="col">Date</th>
+            <th scope="col">Description</th>
+            <th scope="col">Savings</th>
+            <th scope="col">Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in expenses %}
+            <tr>
+              <th scope="row">{{ loop.index }}</th>
+              <td>{{ row["EXPENSENAME"] }}</td>
+              <td>{{ row["DATE"]+"/"+row["MONTH"]+"/"+row["YEAR"] }}</td>
+              <td>{{ row["DESCRIPTION"] }}</td>
+              <td>{{ row["SAVINGSNAME"] }} : {{ row["SAVINGSTYPE"] }}</td>
+              <td>{{ row["AMOUNT"] }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <!-- End Table with hoverable rows -->
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Highest Expenses</h5>
+      <!-- Table with hoverable rows -->
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Expense</th>
+            <th scope="col">Date</th>
+            <th scope="col">Description</th>
+            <th scope="col">Savings</th>
+            <th scope="col">Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in expenses %}
+            <tr>
+              <th scope="row">{{ loop.index }}</th>
+              <td>{{ row["EXPENSENAME"] }}</td>
+              <td>{{ row["DATE"]+"/"+row["MONTH"]+"/"+row["YEAR"] }}</td>
+              <td>{{ row["DESCRIPTION"] }}</td>
+              <td>{{ row["SAVINGSNAME"] }} : {{ row["SAVINGSTYPE"] }}</td>
+              <td>{{ row["AMOUNT"] }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <!-- End Table with hoverable rows -->
+    </div>
+  </div>
+</section>
+{% endblock %} 

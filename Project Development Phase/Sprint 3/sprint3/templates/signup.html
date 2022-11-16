@@ -1,0 +1,105 @@
+{% extends 'head.html' %}
+
+
+{% block head %}
+{% endblock %}
+
+{% block body %}
+<header id="header" class="header fixed-top d-flex align-items-center">
+    <div class="d-flex align-items-center justify-content-between">
+        <a href="/home" class="logo d-flex align-items-center">
+        <img src="static/assets/img/apple-touch-icon.png" alt="">
+        <span class="d-none d-lg-block">eXpenso</span>
+        </a>
+    </div><!-- End Logo -->
+</header>
+<div class="row d-flex justify-content-center" style="margin-top: 65px;">
+    <div class="col-md-5">
+        {% if msg %}
+        <div class="alert alert-primary alert-dismissible fade show" role="alert" data-mdb-delay="3000".>
+            {{ msg }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endif %}
+    </div>
+</div>
+<div class="row d-flex justify-content-center" style="margin-top:35px;">
+    <div class="col-md-6">
+        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+            class="img-fluid" alt="Sample image">
+    </div>
+    <div class="col-md-5 ">
+        <form action="/signup" method="post" id="form" onsubmit="return ValidateForm()">
+            <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
+                <p class="lead fw-normal mb-0 me-3">Sign Up with</p>
+                <button type="button" class="btn btn-primary btn-floating mx-1">
+                    <i class="fab fa-facebook-f"></i>
+                </button>
+
+                <button type="button" class="btn btn-primary btn-floating mx-1">
+                    <i class="fab fa-twitter"></i>
+                </button>
+
+                <button type="button" class="btn btn-primary btn-floating mx-1">
+                    <i class="fab fa-linkedin-in"></i>
+                </button>
+            </div>
+
+            <div class="divider d-flex align-items-center my-4">
+                <p class="text-center fw-bold mx-3 mb-0">Or</p>
+            </div>
+
+            <!-- Name input -->
+            <div class="form-group md-3 form_group">
+                <input placeholder="Name" class="form-control" type="text" name="name" formControlName="text"
+                    id="name" onkeyup="validateName()">
+                <!-- <div *ngIf="func.text.touched && func.text.invalid" class="alert alert-danger">
+                    <div *ngIf="func.text.errors?.['required']">* Name is required</div>
+                </div> -->
+                <div id="name-error"></div>
+                <br>
+            </div>
+
+            <!-- Email input -->
+            <div class="form-group form_group">
+                <input placeholder="Email" class="form-control" type="email" name="email"
+                    formControlName="email" id="email" onkeyup="validateEmail()">
+                <!-- <div *ngIf="func.email.touched && func.email.invalid" class="alert alert-danger">
+                    <div *ngIf="func.email.errors?.['required']">* Email is required</div>
+                    <div *ngIf="func.email.errors?.['email']">* Enter valid Email</div>
+                </div> -->
+                <div id="email-error"></div>
+                <br>
+            </div>
+
+            <!-- Password input -->
+            <div class="form-group form_group">
+                <input placeholder="Password" class="form-control" type="password" name="password"
+                    formControlName="pass1" id="pass" onkeyup="validatePass()">
+                <!-- <div *ngIf="func.pass1.touched && func.pass1.invalid" class="alert alert-danger">
+                    <div *ngIf="func.pass1.errors?.['required']">* Password is required</div>
+                </div> -->
+                <div id="pass-error"></div>
+                <br>
+            </div>
+
+
+            <!-- Checkbox -->
+            <div class="form-check mb-0">
+                <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3" />
+                <label class="form-check-label" for="form2Example3">
+                    I have read and agree to the terms
+                </label>
+            </div>
+
+            <div class="text-center text-lg-start mt-4 pt-2">
+                <button type="submit" class="btn btn-primary btn-lg"
+                    style="padding-left: 2.5rem; padding-right: 2.5rem;" href="/signup" id="button" >Create Account</button>
+                <p class="small fw-bold mt-2 pt-1 mb-0">Already have an account? <a
+                        class="link-danger" style="cursor: pointer;" href="/signin">Login</a></p>
+            </div>
+
+        </form>
+    </div>
+</div>
+{% endblock %}
