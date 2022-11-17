@@ -1,0 +1,248 @@
+{% extends 'head.html' %}
+{% block body %}
+<header id="header" class="header fixed-top d-flex align-items-center justify-content-between">
+    <div class="d-flex align-items-center justify-content-between">
+        <a href="/home" class="logo d-flex align-items-center">
+        <img src="static/assets/img/apple-touch-icon.png" alt="">
+        <span class="d-none d-lg-block">eXpenso</span>
+        </a>
+    </div><!-- End Logo -->
+    <nav id="navbar" class="navbar me-2">
+        <ul>
+            <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
+            <li><a class="nav-link scrollto" href="#service">Service</a></li>
+            <li><a class="nav-link scrollto" href="#faq">FAQ</a></li>
+            <li><a class="nav-link scrollto" href="#about">About Us</a></li>
+            <li><a class="getstarted scrollto signUp" href="/signin">Get Started</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+    </nav><!-- .navbar -->
+</header><!-- End Header -->
+
+<!-- ======= Hero Section ======= -->
+<main id="main" class="main" style="margin-left: 0px;">
+    <section id="hero" class="hero d-flex align-items-center">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 d-flex flex-column justify-content-center">
+                    <h1 class="caption" data-aos="fade-up">Managing Money,<br> Made Simple</h1>
+                    <h2 data-aos="fade-up" data-aos-delay="400"> Stop living paycheck-to-paycheck,<br>
+                        get out of debt, and save more money</h2>
+                    <div data-aos="fade-up" data-aos-delay="600">
+                        <div class="text-center text-lg-start">
+                            <a class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center"
+                                href="/signin">
+                                <span>Get Started</span>
+                                <i class="bi bi-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 hero-img" data-aos="zoom-out" data-aos-delay="200">
+                    <img src="static/assets/img/hero-img.png" class="img-fluid" alt="">
+                </div>
+            </div>
+        </div>
+
+    </section><!-- End Hero -->
+    <!-- ======= Values Section ======= -->
+    <section id="service" class="values" ">
+        <div class="container" data-aos="fade-up">
+            <header class="section-header">
+                <h2>Services</h2>
+                <p>SERVICES</p>
+            </header>
+            <div class="row">
+                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="box">
+                        <img src="static/assets/img/values-1.png" class="img-fluid" alt="">
+                        <h3>All your Accounts.<br>All in One Place.</h3>
+                        <p>See it all at a glance by linking your cash accounts, credit cards, investments, and
+                            bills.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="400">
+                    <div class="box">
+                        <img src="static/assets/img/values-2.png" class="img-fluid" alt="">
+                        <h3>Keep your cashflow <br> crystal clear</h3>
+                        <p>Effortlessly track your cashflow and gain insights that'll help you save your expenses.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-4 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="600">
+                    <div class="box">
+                        <img src="static/assets/img/values-3.png" class="img-fluid" alt="">
+                        <h3>Notified through <br> constant remainders</h3>
+                        <p>Link your mobile number for getting constant alerts and remainders.</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section><!-- End Values Section -->
+    <!-- ======= F.A.Q Section ======= -->
+    <section id="faq" class="faq ">
+
+        <div class="container" data-aos="fade-up">
+
+            <header class="section-header">
+                <h2>F.A.Q</h2>
+                <p>Frequently Asked Questions</p>
+            </header>
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <!-- F.A.Q List 1-->
+                    <div class="accordion accordion-flush" id="faqlist1">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#faq-content-1">
+                                    What is Expenso- Personal Tracker software?
+                                </button>
+                            </h2>
+                            <div id="faq-content-1" class="accordion-collapse collapse" data-bs-parent="#faqlist1">
+                                <div class="accordion-body">
+                                    Expenso- Personal Tracker is a tool that helps individuals to track and maintain their expenses.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#faq-content-2">
+                                    What are the benefits of using Expenso- Personal Tracker?
+                                </button>
+                            </h2>
+                            <div id="faq-content-2" class="accordion-collapse collapse" data-bs-parent="#faqlist1">
+                                <div class="accordion-body">
+                                    There are many benefits in using our website like<br>
+                                    1. Effortlessly track your cashflow and gain insights that'll help you save your expenses.<br>
+                                    2. You can view your savings and get the analysis of the both credit and debit <br>
+                                    3. You can get constant alerts and remainders. <br>
+                                    4. Also can track our loans and get reminded constanly.
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+
+                    <!-- F.A.Q List 2-->
+                    <div class="accordion accordion-flush" id="faqlist2">
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#faq2-content-1">
+                                    What are the key features of Expenso- Personal Tracker?
+                                </button>
+                            </h2>
+                            <div id="faq2-content-1" class="accordion-collapse collapse" data-bs-parent="#faqlist2">
+                                <div class="accordion-body">
+                                    Expenso- Personal Trackervary in terms of features. Some of the most common
+                                    features include: <br>
+                                    1. Tracking your expenses<br>
+                                    2. Generate reports<br>
+                                    3. Getting Reminded<br>
+                                    4. Tracking yourloans
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#faq2-content-2">
+                                    What are the different options in savings that our site provides?
+                                </button>
+                            </h2>
+                            <div id="faq2-content-2" class="accordion-collapse collapse" data-bs-parent="#faqlist2">
+                                <div class="accordion-body">
+                                    Expenso- Personal Tracker can be classified into two main categories in terms of savings: <br>
+                                    1. Credit Type<br>
+                                    2. Debit Type
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section><!-- End F.A.Q Section -->
+
+    <!-- ======= About Section ======= -->
+    <section id="about" class="about">
+
+        <div class="container" data-aos="fade-up">
+
+            <header class="section-header">
+                <h2>About Us</h2>
+                <p>Members of our team</p>
+            </header>
+
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="card" style="width: 18rem;">
+                        <img src="static\assets\img\neelu.jpeg" class="card-img-top" alt="..." height="300px">
+                        <div class="card-body">
+                          <h5 style="font-weight: 400; text-align: center;">Vayugandla Neelima</h5>
+                          <p class="card-text"></p>
+                        </div>
+                      </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="card" style="width: 18rem;">
+                        <img src="static\assets\img\sathu.jpeg" class="card-img-top" alt="..." height="300px">
+                        <div class="card-body">
+                            <h5 style="font-weight: 400; text-align: center;">Leela Sathvika</h5>
+                          <p class="card-text"></p>
+                        </div>
+                      </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="card" style="width: 18rem;">
+                        <img src="static\assets\img\saffu.jpeg" class="card-img-top" alt="..." height="300px">
+                        <div class="card-body">
+                            <h5 style="font-weight: 400; text-align: center;">Shaik Safeena</h5>
+                          <p class="card-text"></p>
+                        </div>
+                      </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="card" style="width: 18rem;">
+                        <img src="static\assets\img\pragna.jpeg" class="card-img-top" alt="..." height="300px">
+                        <div class="card-body">
+                            <h5 style="font-weight: 400; text-align: center;">S Pragnasya</h5>
+                          <p class="card-text"></p>
+                        </div>
+                      </div>
+                </div>
+            </div>
+
+        </div>
+
+    </section><!-- End Contact Section -->
+
+</main><!-- End #main -->
+<!-- ======= Footer ======= -->
+<footer id="footer" class="footer" style="margin-left: 0px;">
+    <div class="copyright">
+    &copy; Copyright <strong><span>IBM-Project-23937-1659933802</span></strong>. All Rights Reserved
+    </div>
+    <div class="credits">
+        Designed by IBM-Project-23937-1659933802</a>
+    </div>
+</footer><!-- End Footer -->
+
+{% endblock %}
