@@ -1,0 +1,215 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<div class="mx-auto">
+  {% if successMessage %}
+  <div class="alert alert-primary alert-dismissible fade in show" role="alert">
+    {{ successMessage }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  {% endif %}
+  {% if failureMessage %}
+  <div class="alert alert-danger alert-dismissible fade in show" role="alert">
+    {{ failureMessage }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  {% endif %}
+</div>
+
+<div class="pagetitle">
+  <div class="row">
+    <div class="col-md-10">
+      <h1>Reminders</h1>
+      <nav>
+      <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/">Home</a></li>
+          <li class="breadcrumb-item"><a href="/Reminders">Reminders</a></li>
+      </ol>
+      </nav>
+    </div>
+    <div class="col-md-2">
+      <!-- Add reminder Modal -->
+      <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#addReminderModal">
+        Add Reminder
+      </button>
+
+      <div class="modal fade " id="addReminderModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Add Reminder</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <!-- Multi Columns Form -->
+              <form class="row g-3" action="Reminders" method="post">
+                <div class="col-md-12 form_group">
+                  <label for="remindername" class="form-label">Reminder Name</label>
+                  <input type="text" class="form-control" id="remindername" name="remindername">
+                </div>
+                <div class="col-md-6 form_group">
+                  <label for="reminderdate" class="form-label">Set Date</label>
+                  <input type="date" class="form-control" id="reminderdate" name="reminderdate">
+    
+                </div>
+                <!-- recurr dropdown will come here  -->
+                <div class="col-12 form_group">
+                  <label for="reminderdescription" class="form-label">Description</label>
+                  <textarea class="form-control" id="reminderdescription" name="reminderdescription"
+                    placeholder="Write Note about Reminder...."></textarea>
+                </div>
+                <div class="col-md-6 form_group">
+                  <label for="frequency" class="form-label">Frequency</label>
+                  <select id="frequency" class="form-select" name="frequency">
+                    <option value="Only Once" label="Only Once">Only Once</option>
+                    <option value="Daily" label="Daily">Daily</option>
+                    <option value="Weekly" label="Weekly">Weekly</option>
+                    <option value="Monthly" label="Monthly">Monthly</option>
+                    <option value="Yearly" label="Yearly">Yearly</option>
+                  </select>
+                </div>
+                <div class="text-center">
+                  <button type="submit" class="btn btn-primary" name="submit" value="addReminder">Add Reminder</button>
+                  <button type="reset" class="btn btn-secondary">Reset</button>
+                </div>
+              </form><!-- End Multi Columns Form -->
+            </div>
+            <div class="modal-footer">
+            </div>
+          </div>
+        </div>
+      </div><!-- End Add reminder Modal-->
+    </div>
+  </div>
+</div><!-- End Page Title -->
+<section class="section">
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Reminder</h5>
+
+      <!-- Table with hoverable rows -->
+      <table class="table table-hover" id="reminder-records">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Date</th>
+            <th scope="col">Description</th>
+            <th scope="col">Frequency</th>
+            <th scope="col">Edit</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in reminders %}
+          <tr>
+            <th scope="row">{{ loop.index }}</th>
+            <td>{{ row["REMINDERNAME"] }}</td>
+            <td>{{ row["DATE"]+"/"+row["MONTH"]+"/"+row["YEAR"] }}</td>
+            <td>{{ row["DESCRIPTION"] }}</td>
+            <td>{{ row["FREQUENCY"] }}</td>
+            <td>
+              <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button type="button" class="btn btn-warning" id="edit-reminder-form" data-bs-toggle="modal"
+                data-bs-target="#editReminderModal" value='{{ row["REMINDERID"] }}'>
+                <i class="fa fa-pen-to-square"></i>
+              </button>
+
+              <form action="Reminders" method="post">
+                <input type="text" name="reminderid" value='{{ row["REMINDERID"] }}' hidden />
+                <button class="btn btn-danger" type="submit" name="submit" value='deleteReminder'><i
+                    class="fa fa-trash"></i></button>
+              </div>
+              
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <!-- End Table with hoverable rows -->
+    </div>
+  </div>
+  <div class="modal fade " id="editReminderModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Edit Reminder</h5>
+          <button type="reset" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Multi Columns Form -->
+          <form class="row g-3" action="/Reminders" method="post">
+            <input type="text" class="form-control" id="editreminderid" name="reminderid" value="" hidden>
+            <div class="col-md-12">
+              <label for="remindername" class="form-label">Reminder Name</label>
+              <input type="text" class="form-control" id="editremindername" name="remindername" value="">
+            </div>
+            <div class="col-md-6">
+              <label for="reminderdate" class="form-label">Date</label>
+              <input type="date" class="form-control" id="editreminderdate" name="reminderdate">
+            </div>
+            <div class="col-12">
+              <label for="reminderdescription" class="form-label">Description</label>
+              <textarea class="form-control" id="editreminderdescription" name="reminderdescription"
+                placeholder="Write Note about Reminder...."></textarea>
+            </div>
+            <div class="col-md-6">
+              <label for="frequency" class="form-label">Remind</label>
+              <select id="editfrequency" class="form-select" name="frequency" value="">
+                  <option value="Only Once" label="Only Once">Only Once</option>
+                  <option value="Daily" label="Daily">Daily</option>
+                  <option value="Weekly" label="Weekly">Weekly</option>
+                  <option value="Monthly" label="Monthly">Monthly</option>
+                  <option value="Yearly" label="Yearly">Yearly</option>
+                </select>
+              </option>
+              </select>
+            </div>
+            
+            <div class="text-center">
+              <button type="submit" class="btn btn-primary" name="submit" value="editReminder">Edit Reminder</button>
+              <button type="reset" class="btn btn-secondary">Reset</button>
+            </div>
+          </form><!-- End Multi Columns Form -->
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div>
+    </div>
+  </div><!-- End Edit reminder Modal-->
+</section>
+<script>
+  $(document).ready(function () {
+    $('#reminder-records').DataTable({
+        order: [[1, 'desc']],
+    });
+});
+</script>
+<script>
+  $(document).ready(function(){
+    $('.btn-warning').click(function(){
+      var reminderid = $(this).val();
+      $.ajax({
+        url:'/Reminders',
+        type:'post',
+        data: {'submit':'getReminderValues','reminderid':reminderid},
+        success: function(data) {
+          var reminder = JSON.parse(data);
+          $('#editreminderid').val(reminder['REMINDERID']);
+          $('#editremindername').val(reminder['REMINDERNAME']);
+          $('#editreminderdate').val(reminder['DATE']+"-"+reminder['MONTH']+"-"+reminder['YEAR']);
+          $('#editreminderdescription').val(reminder['DESCRIPTION']);
+          $('#editfrequency').val(reminder['FREQUENCY']);
+        }
+      })
+    });
+  });
+
+  $(document).ready(function () {
+    var today = new Date().toISOString().split('T')[0];
+    $("#reminderdate").attr('min', today);
+  });
+
+</script>
+
+{% endblock %}

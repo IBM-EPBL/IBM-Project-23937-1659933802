@@ -1,0 +1,4 @@
+flask
+flask-mail
+ibm_db
+ibm-cos-sdk

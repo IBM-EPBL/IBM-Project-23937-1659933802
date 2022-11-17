@@ -1,0 +1,280 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<div class="pagetitle">
+  <div class="row">
+    <div class="col-md-10">
+      <h1>Loan Tracker</h1>
+      <nav>
+      <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/">Home</a></li>
+          <li class="breadcrumb-item"><a href="/LoanTacker">LoanTracker</a></li>
+      </ol>
+      </nav>
+    </div>
+    <div class="col-md-2">
+      <!-- Add Loan Modal -->
+      <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#addLoanModal">
+        Add Loan
+      </button>
+      <div class="modal fade " id="addLoanModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Add Loan</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <!-- Multi Columns Form -->
+              <form class="row g-3" action="/LoanTracker" method="post">
+                <div class="col-md-12">
+                  <label for="loanname" class="form-label">Loan Name</label>
+                  <input type="text" class="form-control" id="loanname" name="loanname">
+                </div>
+                <div class="col-md-6">
+                  <label for="loanpayee" class="form-label">Payee</label>
+                  <input type="text" class="form-control" id="loanpayee" name="loanpayee">
+                </div>
+                <div class="col-md-6">
+                  <label for="loandate" class="form-label">Date</label>
+                  <input type="date" class="form-control" id="loandate" name="loandate">
+                </div>
+                <div class="col-md-6">
+                  <label for="amountborrowed" class="form-label">Amount Borrowed</label>
+                  <input type="number" class="form-control" id="amountborrowed" name="amountborrowed">
+                </div>
+                <div class="col-md-6">
+                  <label for="duration" class="form-label">Duration (in years)</label>
+                  <input type="number" class="form-control" id="duration" name="duration">
+                </div>
+                <div class="col-md-6">
+                  <label for="interest" class="form-label">Interest</label>
+                  <input type="float" class="form-control" id="interest" name="interest">
+                </div>
+                <div class="col-md-6">
+                  <label for="amountpaid" class="form-label">Amount Paid</label>
+                  <input type="number" class="form-control" id="amountpaid" name="amountpaid">
+                </div>
+                <div class="text-center">
+                  <button type="submit" class="btn btn-primary" name="submit" value="addLoan">Add Loan</button>
+                  <button type="reset" class="btn btn-secondary">Reset</button>
+                </div>
+              </form><!-- End Multi Columns Form -->
+            </div>
+            <div class="modal-footer">
+            </div>
+          </div>
+        </div>
+      </div><!-- End Add Loan Modal-->
+    </div>
+  </div>
+</div><!-- End Page Title -->
+<section class="section dashboard">
+<div class="row"> 
+  <div class="col-md-4">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card info-card loan-card">
+          <div class="card-body">
+            <h5 class="card-title">Loan Amount Pending</h5>
+
+            <div class="d-flex align-items-center">
+              <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                <i class="bi bi-bank"></i>
+              </div>
+              <div class="ps-3">
+                <h6>Rs. {{ totalLoanLeft }}</h6>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card info-card savings-card">
+          <div class="card-body">
+            <h5 class="card-title">Loan Amount Paid</h5>
+
+            <div class="d-flex align-items-center">
+              <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                <i class="bi bi-piggy-bank-fill"></i>
+              </div>
+              <div class="ps-3">
+                <h6>Rs. {{ totalLoanPaid }}</h6>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-8">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Reports</h5>
+        <!-- Pie Chart -->
+        <canvas id="pieChart" style="max-height: 400px;"></canvas>
+        <script>
+          document.addEventListener("DOMContentLoaded", () => {
+            new Chart(document.querySelector('#pieChart'), {
+              type: 'pie',
+              data: {
+                labels: [
+                  'Total Loan Unpaid',
+                  'Total Loan Paid'
+                ],
+                datasets: [{
+                  label: 'My First Dataset',
+                  data: {{ [totalLoanLeft, totalLoanPaid ] | safe }},
+                  backgroundColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(54, 162, 235)',
+                  ],
+                  hoverOffset: 4
+                }]
+              }
+            });
+          });
+        </script>
+        <!-- End Pie CHart -->
+      </div>
+ </div>
+  </div>
+</div>
+<div class="card">
+     <div class="card-body">
+       <h5 class="card-title">Loans</h5>
+
+       <!-- Table with hoverable rows -->
+       <table class="table table-hover" id="loan-records">
+         <thead>
+           <tr>
+             <th scope="col">#</th>
+             <th scope="col">Name</th>
+             <th scope="col">Payee</th>
+             <th scope="col">Date</th>
+             <th scope="col">Amount Borrowed</th>
+             <th scope="col">Duration (in years)</th>
+             <th scope="col">Interest</th>
+             <th scope="col">Total Amount</th>
+             <th scope="col">Amount Paid</th>
+             <th scope="col">Amount Left</th>
+             <th scope="col">Edit</th>
+           </tr>
+         </thead>
+         <tbody>
+           {% for row in loans %}
+             <tr>
+               <th scope="row">{{ loop.index }}</th>
+               <td>{{ row["LOANNAME"] }}</td>
+               <td>{{ row["PAYEE"] }}</td>
+               <td>{{ row["DATE"]}}</td>
+               <td>{{ row["AMOUNTBORROWED"] }}</td>
+               <td>{{ row["DURATION"] }}</td>
+               <td>{{ row["INTEREST"] }}</td>
+               <td>{{ row["TOTALAMOUNT"] }}</td>
+               <td>{{ row["AMOUNTPAID"] }}</td>
+               <td>{{ row["AMOUNTLEFT"] }}</td>
+               <td>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                  <button type="button" class="btn btn-warning" id="edit-loan-form" data-bs-toggle="modal" data-bs-target="#editLoanModal" value='{{ row["LOANID"] }}'>
+                         <i class="fa fa-pen-to-square"></i>
+                         </button>
+                    <form action="/LoanTracker" method="post">
+                         <input type="text" name="loanid" value='{{ row["LOANID"] }}' hidden/>
+                         <button class="btn btn-danger" type="submit" name="submit" value='deleteLoan'><i class="fa fa-trash"></i></button>
+                    </form></div>
+                        
+               </td>
+             </tr>
+           {% endfor %}
+         </tbody>
+       </table>
+       <!-- End Table with hoverable rows -->
+     </div>
+ </div>
+<div class="modal fade " id="editLoanModal" tabindex="-1">
+<div class="modal-dialog modal-lg">
+ <div class="modal-content">
+   <div class="modal-header">
+     <h5 class="modal-title">Edit Loan</h5>
+     <button type="reset" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+   </div>
+   <div class="modal-body">
+     <!-- Multi Columns Form -->
+     <form class="row g-3" action="/LoanTracker" method="post">
+       <input type="text" class="form-control" id="editloanid" name="loanid" value="" hidden>
+       <div class="col-md-12">
+        <label for="editloanname" class="form-label">Loan Name</label>
+        <input type="text" class="form-control" id="editloanname" name="loanname">
+      </div>
+      <div class="col-md-6">
+        <label for="editloanpayee" class="form-label">Payee</label>
+        <input type="text" class="form-control" id="editloanpayee" name="loanpayee">
+      </div>
+      <div class="col-md-6">
+        <label for="editloandate" class="form-label">Date</label>
+        <input type="date" class="form-control" id="editloandate" name="loandate">
+      </div>
+      <div class="col-md-6">
+        <label for="editamountborrowed" class="form-label">Amount Borrowed</label>
+        <input type="number" class="form-control" id="editamountborrowed" name="amountborrowed">
+      </div>
+      <div class="col-md-6">
+        <label for="editduration" class="form-label">Duration (in years)</label>
+        <input type="number" class="form-control" id="editduration" name="duration">
+      </div>
+      <div class="col-md-6">
+        <label for="editinterest" class="form-label">Interest</label>
+        <input type="float" class="form-control" id="editinterest" name="interest">
+      </div>
+      <div class="col-md-6">
+        <label for="editamountpaid" class="form-label">Amount Paid</label>
+        <input type="number" class="form-control" id="editamountpaid" name="amountpaid">
+      </div>
+      <div class="text-center">
+        <button type="submit" class="btn btn-primary" name="submit" value="editLoan">Edit Loan</button>
+        <button type="reset" class="btn btn-secondary">Reset</button>
+      </div>
+    </form><!-- End Multi Columns Form -->
+   </div>
+   <div class="modal-footer">
+   </div>
+ </div>
+</div>
+</div><!-- End Edit Loan Modal-->
+</section>
+
+  <script>
+     $(document).ready(function () {
+       $('#loan-records').DataTable({
+           order: [[1, 'desc']],
+       });
+   });
+   </script>
+   
+   <script>
+     $(document).ready(function(){
+       $('.btn-warning').click(function(){
+         var loanid = $(this).val();
+         $.ajax({
+           url:'/LoanTracker',
+           type:'post',
+           data: {'submit':'getLoanValues','loanid':loanid},
+           success: function(data) {
+             var loan = JSON.parse(data);
+             $('#editloanid').val(loan["LOANID"]);
+             $('#editloanname').val(loan['LOANNAME']);
+             $('#editloanpayee').val(loan['PAYEE']);
+             $('#editloandate').val(loan['DATE']);
+             $('#editamountborrowed').val(loan['AMOUNTBORROWED']);
+             $('#editduration').val(loan['DURATION']);
+             $('#editinterest').val(loan['INTEREST']);
+             $('#editamountpaid').val(loan['AMOUNTPAID']);
+           }
+         })
+       });
+     });
+   </script>
+{% endblock %} 
