@@ -1,0 +1,226 @@
+{% extends 'base.html' %}
+
+{% block main %}
+    <div class="pagetitle">
+        <h1>Home</h1>
+        <nav>
+              <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="home">Home</a></li>
+              </ol>
+        </nav>
+    </div><!-- End Page Title -->
+    <section class="section dashboard">
+          <div class="row">
+            <!-- Left side columns -->
+            <div class="col-lg-8">
+              <div class="row">
+                <!-- expenses Card -->
+                <div class="col-xxl-4 col-md-6">
+                  <div class="card info-card expense-card">
+    
+                    <div class="card-body">
+                      <h5 class="card-title">Expenses <span>| {{ expenseFilter }}</span></h5>
+    
+                      <div class="d-flex align-items-center">
+                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                          <i class="bi bi-wallet2"></i>
+                        </div>
+                        <div class="ps-3">
+                          <h6>Rs. {{ totalExpenses }}</h6>
+                        </div>
+                      </div>
+                    </div>
+    
+                  </div>
+                </div><!-- End expenses Card -->
+    
+                <!-- savings Card -->
+                <div class="col-xxl-4 col-md-6">
+                  <div class="card info-card savings-card">
+    
+                    <div class="card-body">
+                      <h5 class="card-title">Savings</h5>
+    
+                      <div class="d-flex align-items-center">
+                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                          <i class="bi bi-piggy-bank"></i>
+                        </div>
+                        <div class="ps-3">
+                          <h6>Rs. {{ totalSavings }}</h6> 
+                        </div>
+                      </div>
+                    </div>
+    
+                  </div>
+                </div><!-- End savings Card -->
+    
+                <!-- Loan Card -->
+                <div class="col-xxl-4 col-xl-12">
+    
+                  <div class="card info-card loan-card">
+    
+                    <div class="card-body">
+                      <h5 class="card-title">Loan Balance <span>| This Year</span></h5>
+    
+                      <div class="d-flex align-items-center">
+                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                          <i class="bi bi-bank"></i>
+                        </div>
+                        <div class="ps-3">
+                          <h6>{{ totalLoanLeft }}</h6>  
+                        </div>
+                      </div>
+    
+                    </div>
+                  </div>
+    
+                </div><!-- End Loan Card -->
+
+                <!-- Recent expenses -->
+                <div class="col-12">
+                  <div class="card recent-expenses overflow-auto">
+    
+                    <div class="card-body">
+                      <h5 class="card-title">Recent Expenses</h5>
+    
+                      <table class="table table-hover" id="expense-records">
+                        <thead>
+                          <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Savings</th>
+                            <th scope="col">Savings Type</th>
+                            <th scope="col">Amount</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% for row in expenses %}
+                            <tr>
+                              <th scope="row">{{ loop.index }}</th>
+                              <td>{{ row["EXPENSENAME"] }}</td>
+                              <td>{{ row["DATE"]+"/"+row["MONTH"]+"/"+row["YEAR"] }}</td>
+                              <td>{{ row["DESCRIPTION"] }}</td>
+                              <td>{{ row["SAVINGSNAME"] }}</td>
+                              <td>{{ row["SAVINGSTYPE"] }}</td>
+                              <td>{{ row["AMOUNT"] }}</td>
+                            </tr>
+                          {% endfor %}
+                        </tbody>
+                      </table>
+    
+                    </div>
+    
+                  </div>
+                </div><!-- End Recent expenses -->
+
+                <!-- Reports -->
+                <div class="col-12">
+                  <div class="card">
+    
+                    <div class="card-body">
+                      <h5 class="card-title">Expense Reports <span>|This Year</span></h5>
+    
+                      <!-- Line Chart -->
+                      <div >
+                        <canvas id="reportsChart" style="max-height: 400px; display: block; box-sizing: border-box; height: 208.8px; width: 418.4px;" width="523" height="261"></canvas>
+                      </div>
+                      <script>
+                        document.addEventListener("DOMContentLoaded", () => {
+                          new Chart(document.querySelector('#reportsChart'), {
+                            type: 'line',
+                            data: {
+                              labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July','August','September','October','November','December'],
+                              datasets: [{
+                                label: 'Line Chart',
+                                data: {{ monthExpenseList }},
+                                fill: false,
+                                borderColor: 'rgb(75, 192, 192)',
+                                tension: 0.1
+                              }]
+                            },
+                            options: {
+                              scales: {
+                                y: {
+                                  beginAtZero: true
+                                }
+                              }
+                            }
+                          });
+                        });
+                      </script>
+
+                    </div>
+    
+                  </div>
+                </div><!-- End Reports -->
+              </div>
+            </div><!-- End Left side columns -->
+    
+            <!-- Right side columns -->
+            <div class="col-lg-4">
+    
+              <div class="card">
+    
+                <div class="card-body">
+                  <h5 class="card-title">Reminders</h5>
+    
+                  <div class="activity">
+                  {% for reminder in reminders %}
+                    <div class="activity-item d-flex">
+                      <div class="activite-label">{{ reminder[0]}} days {{ reminder[3] }} {{ reminder[4] }}</div>
+                      <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
+                      <div class="activity-content">
+                        <span  class="fw-bold text-dark">{{reminder[1]}}</span>
+                        {{reminder[2][:100]}}...
+                      </div>
+                    </div><!-- End activity item-->
+                  {% endfor %}
+                  </div>
+    
+                </div>
+              </div><!-- End Recent Activity -->
+            
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Loan Reports</h5>
+                  <!-- Pie Chart -->
+                  <canvas id="pieChart" style="max-height: 400px;"></canvas>
+                  <script>
+                    document.addEventListener("DOMContentLoaded", () => {
+                      new Chart(document.querySelector('#pieChart'), {
+                        type: 'pie',
+                        data: {
+                          labels: [
+                            'Total Loan Unpaid',
+                            'Total Loan Paid'
+                          ],
+                          datasets: [{
+                            label: 'My First Dataset',
+                            data: {{ [totalLoanLeft, totalLoanPaid ] | safe }},
+                            backgroundColor: [
+                              'rgb(255, 99, 132)',
+                              'rgb(54, 162, 235)',
+                            ],
+                            hoverOffset: 4
+                          }]
+                        }
+                      });
+                    });
+                  </script>
+                  <!-- End Pie CHart -->
+                </div>
+           </div>
+            </div>
+    
+          </div>
+     </section>
+     <script>
+      $(document).ready(function () {
+        $('#expense-records').DataTable({
+            order: [[1, 'desc']],
+        });
+    });
+    </script>
+{% endblock %} 

@@ -1,0 +1,258 @@
+{% extends 'base.html' %}
+
+{% block main %}
+     <div class="pagetitle">
+          <h1>Home</h1><!--Change Here-->
+          <nav>
+               <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/home">Home</a></li>
+                    <li class="breadcrumb-item"><a href="/expenseAnalysis">Expense Analysis</a></li><!--Change Here-->
+               </ol>
+          </nav>
+     </div><!-- End Page Title -->
+     <section class="section dashboard">
+          <div class="card">
+               <div class="card-body">
+                 <h5 class="card-title">Line Chart</h5>
+                 <!-- Bordered Tabs Justified -->
+                 <ul class="nav nav-tabs nav-tabs-bordered d-flex" id="borderedTabJustified" role="tablist">
+                   <li class="nav-item flex-fill" role="presentation">
+                     <button class="nav-link w-100 active" id="lineChartThisMonth-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-lineChartThisMonth" type="button" role="tab" aria-controls="lineChartThisMonth" aria-selected="true">This Month</button>
+                   </li>
+                   <li class="nav-item flex-fill" role="presentation">
+                     <button class="nav-link w-100" id="lineChartThisYear-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-lineChartThisYear" type="button" role="tab" aria-controls="lineChartThisYear" aria-selected="false">This Year</button>
+                   </li>
+                   <li class="nav-item flex-fill" role="presentation">
+                     <button class="nav-link w-100" id="lineChartAllYears-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-lineChartAllYears" type="button" role="tab" aria-controls="lineChartAllYears" aria-selected="false">All Years</button>
+                   </li>
+                 </ul>
+                 <div class="tab-content pt-2" id="borderedTabJustifiedContent">
+                   <div class="tab-pane fade show active" id="bordered-justified-lineChartThisMonth" role="tabpanel" aria-labelledby="lineChartThisMonth-tab">
+                    <div class="card">
+                         <div class="card-body">
+                           <h5 class="card-title">Reports <span>| This Month</span></h5>
+                           <!-- Line Chart -->
+                           <div >
+                             <canvas id="lineChartThisMonth" style="max-height: 400px; display: block; box-sizing: border-box; height: 208.8px; width: 418.4px;" width="523" height="261"></canvas>
+                           </div>
+                           <script>
+                             document.addEventListener("DOMContentLoaded", () => {
+                               new Chart(document.querySelector('#lineChartThisMonth'), {
+                                 type: 'line',
+                                 data: {
+                                   labels: {{ dayLabels | safe }},
+                                   datasets: [{
+                                     label: 'Line Chart',
+                                     data: {{ dayExpenseList | safe }} ,
+                                     fill: false,
+                                     borderColor: 'rgb(75, 192, 192)',
+                                     tension: 0.3
+                                   }]
+                                 },
+                                 options: {
+                                   scales: {
+                                     y: {
+                                       beginAtZero: true
+                                     }
+                                   }
+                                 }
+                               });
+                             });
+                           </script>
+                         </div>
+                    </div>
+                   </div>
+                   <div class="tab-pane fade" id="bordered-justified-lineChartThisYear" role="tabpanel" aria-labelledby="lineChartThisYear-tab">
+                    <div class="card">
+                         <div class="card-body">
+                           <h5 class="card-title">Reports <span>| This Year</span></h5>
+                           <!-- Line Chart -->
+                           <div >
+                             <canvas id="lineChartThisYear" style="max-height: 400px; display: block; box-sizing: border-box; height: 208.8px; width: 418.4px;" width="523" height="261"></canvas>
+                           </div>
+                           <script>
+                             document.addEventListener("DOMContentLoaded", () => {
+                               new Chart(document.querySelector('#lineChartThisYear'), {
+                                 type: 'line',
+                                 data: {
+                                   labels: {{ monthLabels | safe }},
+                                   datasets: [{
+                                     label: 'Line Chart',
+                                     data: {{ monthExpenseList | safe }} ,
+                                     fill: false,
+                                     borderColor: 'rgb(75, 192, 192)',
+                                     tension: 0.3
+                                   }]
+                                 },
+                                 options: {
+                                   scales: {
+                                     y: {
+                                       beginAtZero: true
+                                     }
+                                   }
+                                 }
+                               });
+                             });
+                           </script>
+                         </div>
+                    </div>
+                    </div>
+                   <div class="tab-pane fade" id="bordered-justified-lineChartAllYears" role="tabpanel" aria-labelledby="lineChartAllYears-tab">
+                    <div class="card">
+                         <div class="card-body">
+                           <h5 class="card-title">Reports <span>| All Years</span></h5>
+                           <!-- Line Chart -->
+                           <div >
+                             <canvas id="lineChartAllYears" style="max-height: 400px; display: block; box-sizing: border-box; height: 208.8px; width: 418.4px;" width="523" height="261"></canvas>
+                           </div>
+                           <script>
+                             document.addEventListener("DOMContentLoaded", () => {
+                               new Chart(document.querySelector('#lineChartAllYears'), {
+                                 type: 'line',
+                                 data: {
+                                   labels: {{ yearLabels | safe }},
+                                   datasets: [{
+                                     label: 'Line Chart',
+                                     data: {{ yearExpenseList | safe }} ,
+                                     fill: false,
+                                     borderColor: 'rgb(75, 192, 192)',
+                                     tension: 0.3
+                                   }]
+                                 },
+                                 options: {
+                                   scales: {
+                                     y: {
+                                       beginAtZero: true
+                                     }
+                                   }
+                                 }
+                               });
+                             });
+                           </script>
+                         </div>
+                    </div>
+                   </div>
+                 </div><!-- End Bordered Tabs Justified -->
+   
+               </div>
+          </div>
+
+          <div class="card">
+               <div class="card-body">
+                 <h5 class="card-title">Bar Chart</h5>
+                 <!-- Bordered Tabs Justified -->
+                 <ul class="nav nav-tabs nav-tabs-bordered d-flex" id="borderedTabJustified" role="tablist">
+                   <li class="nav-item flex-fill" role="presentation">
+                     <button class="nav-link w-100 active" id="barChartThisMonth-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-barChartThisMonth" type="button" role="tab" aria-controls="barChartThisMonth" aria-selected="true">This Month</button>
+                   </li>
+                   <li class="nav-item flex-fill" role="presentation">
+                     <button class="nav-link w-100" id="barChartThisYear-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-barChartThisYear" type="button" role="tab" aria-controls="barChartThisYear" aria-selected="false">This Year</button>
+                   </li>
+                 </ul>
+                 <div class="tab-content pt-2" id="borderedTabJustifiedContent">
+                   <div class="tab-pane fade show active" id="bordered-justified-barChartThisMonth" role="tabpanel" aria-labelledby="barChartThisMonth-tab">
+                    <div class="card">
+                         <div class="card-body">
+                           <h5 class="card-title">Reports <span>| This Month</span></h5>
+                           <!-- Bar Chart -->
+                           <canvas id="barChartThisMonth" style="max-height: 400px;"></canvas>
+                           <script>
+                                document.addEventListener("DOMContentLoaded", () => {
+                                new Chart(document.querySelector('#barChartThisMonth'), {
+                                     type: 'bar',
+                                     data: {
+                                     labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'],
+                                     datasets: [{
+                                     label: 'Bar Chart',
+                                     data: {{ dayExpenseList }},
+                                     backgroundColor: [
+                                          'rgba(255, 99, 132, 0.2)',
+                                          'rgba(255, 159, 64, 0.2)',
+                                          'rgba(255, 205, 86, 0.2)',
+                                          'rgba(75, 192, 192, 0.2)',
+                                          'rgba(54, 162, 235, 0.2)',
+                                          'rgba(153, 102, 255, 0.2)',
+                                          'rgba(201, 203, 207, 0.2)'
+                                     ],
+                                     borderColor: [
+                                          'rgb(255, 99, 132)',
+                                          'rgb(255, 159, 64)',
+                                          'rgb(255, 205, 86)',
+                                          'rgb(75, 192, 192)',
+                                          'rgb(54, 162, 235)',
+                                          'rgb(153, 102, 255)',
+                                          'rgb(201, 203, 207)'
+                                     ],
+                                     borderWidth: 1
+                                     }]
+                                     },
+                                     options: {
+                                     scales: {
+                                     y: {
+                                          beginAtZero: true
+                                     }
+                                     }
+                                     }
+                                });
+                                });
+                           </script>
+                      <!-- End Bar CHart -->
+                         </div>
+                    </div>
+                   </div>
+                   <div class="tab-pane fade" id="bordered-justified-barChartThisYear" role="tabpanel" aria-labelledby="barChartThisYear-tab">
+                    <div class="card">
+                         <div class="card-body">
+                           <h5 class="card-title">Reports <span>| This Year</span></h5>
+                           <!-- Bar Chart -->
+                              <canvas id="barChartThisYear" style="max-height: 400px;"></canvas>
+                              <script>
+                                   document.addEventListener("DOMContentLoaded", () => {
+                                   new Chart(document.querySelector('#barChartThisYear'), {
+                                        type: 'bar',
+                                        data: {
+                                        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July','August','September','October','November','December'],
+                                        datasets: [{
+                                        label: 'Bar Chart',
+                                        data: {{ monthExpenseList }},
+                                        backgroundColor: [
+                                             'rgba(255, 99, 132, 0.2)',
+                                             'rgba(255, 159, 64, 0.2)',
+                                             'rgba(255, 205, 86, 0.2)',
+                                             'rgba(75, 192, 192, 0.2)',
+                                             'rgba(54, 162, 235, 0.2)',
+                                             'rgba(153, 102, 255, 0.2)',
+                                             'rgba(201, 203, 207, 0.2)'
+                                        ],
+                                        borderColor: [
+                                             'rgb(255, 99, 132)',
+                                             'rgb(255, 159, 64)',
+                                             'rgb(255, 205, 86)',
+                                             'rgb(75, 192, 192)',
+                                             'rgb(54, 162, 235)',
+                                             'rgb(153, 102, 255)',
+                                             'rgb(201, 203, 207)'
+                                        ],
+                                        borderWidth: 1
+                                        }]
+                                        },
+                                        options: {
+                                        scales: {
+                                        y: {
+                                             beginAtZero: true
+                                        }
+                                        }
+                                        }
+                                   });
+                                   });
+                              </script>
+                         <!-- End Bar CHart -->
+                         </div>
+                    </div>
+                    </div>
+                 </div><!-- End Bordered Tabs Justified -->
+   
+               </div>
+          </div>
+     </section>
+{% endblock %} 

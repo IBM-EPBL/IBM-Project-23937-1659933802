@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="" name="description" />
+    <meta content="" name="keywords" />
+
+    <!-- Favicons -->
+    <link href="static/assets/img/favicon.ico" rel="icon" />
+    <link
+      href="static/assets/img/apple-touch-icon.png"
+      rel="apple-touch-icon"
+    />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+      rel="stylesheet"
+    />
+
+    <!-- Template Main CSS File -->
+    <link
+      href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+      crossorigin="anonymous"
+    />
+    <link href="..\static\css\style.css" rel="stylesheet" />
+    <link
+      href="..\static\css\bootstrap-icons\bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css"
+    />
+
+    <!-- font awesome -->
+    <meta name="google-site-verification" content="......." />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script
+      src="https://kit.fontawesome.com/3d4f965968.js"
+      crossorigin="anonymous"
+    ></script>
+    <meta
+      name="google-signin-client_id"
+      content="1028426482022-1q458309v4156k39b5dnegvm03idbk61.apps.googleusercontent.com"
+    />
+
+    {% block head %} {% endblock %}
+  </head>
+  <body>
+    {% block body %} {% endblock %}
+    <!-- Template Main JS File -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      type="text/javascript"
+      charset="utf8"
+      src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"
+    ></script>
+    <script src="..\static\js\main.js"></script>
+
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script>
+      window.watsonAssistantChatOptions = {
+        integrationID: "0fe21892-5c64-414f-a020-500206ea93c0", // The ID of this integration.
+        region: "jp-tok", // The region your integration is hosted in.
+        serviceInstanceID: "f19cfc71-f94d-4fc1-9a97-142c1dc1beb5", // The ID of your service instance.
+        onLoad: function (instance) {
+          instance.render();
+        },
+      };
+      setTimeout(function () {
+        const t = document.createElement("script");
+        t.src =
+          "https://web-chat.global.assistant.watson.appdomain.cloud/versions/" +
+          (window.watsonAssistantChatOptions.clientVersion || "latest") +
+          "/WatsonAssistantChatEntry.js";
+        document.head.appendChild(t);
+      });
+    </script>
+  </body>
+</html>
